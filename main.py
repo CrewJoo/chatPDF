@@ -37,7 +37,7 @@ import os
 
 # Buy Me a Coffee Button 설치
 from streamlit_extras.buy_me_a_coffee import button 
-button(username="crewjoo", floating=True, width=221)
+button(username="crewjoo", floating=True, width=150)
 
 # 제목
 st.title("ChatPDF")
