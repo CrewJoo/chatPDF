@@ -39,6 +39,10 @@ import os
 st.title("ChatPDF")
 st.write("---")
 
+# OpenAI_APIKEY 입력받기
+# 옵션 type을 password로 정하기
+openai_key = st.text_input('OpenAI_API_KEY', type="password")
+
 # 파일 업로드, Docs > Streamlit library > API reference > File Uploader > st.file_uploader
 uploaded_file = st.file_uploader("pdf파일을 올려주세요.", type=['pdf'])
 st.write("---")
@@ -76,7 +80,7 @@ if uploaded_file is not None:
     texts = text_splitter.split_documents(pages)
 
     # 임베딩 작업 chromadb 설치
-    embeddings_model = OpenAIEmbeddings()
+    embeddings_model = OpenAIEmbeddings(openai_api_key = openai_key)
 
     # DB작업 
     # load it into Chroma 
@@ -99,7 +103,7 @@ if uploaded_file is not None:
     # Docs > Streamlit library > API reference > Input widgets > st.button
     if st.button('질문하기'):
         with st.spinner("곧 결과가 나옵니다. 잠시 명상하고 계세요"):
-            llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+            llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key = openai_key)
             qa_chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
             result = qa_chain({"query": question})      
             
