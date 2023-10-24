@@ -4,8 +4,8 @@ import sys
 sys.modules['sqlite3']= sys.modules.pop('pysqlite3')
 
 # 환경변수 새로 설정할 거라 주석처리함
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 from langchain.document_loaders import PyPDFLoader
 
